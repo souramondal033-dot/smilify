@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Quicksand", sans-serif;
+    --font-body: "Quicksand", sans-serif;
+    --font-mono: "GeistMono", monospace;
+    --radius: 0.625rem;
+
+    --background: 0.98 0.01 20;
+    --foreground: 0.2 0.02 25;
+    --card: 1.0 0 0;
+    --card-foreground: 0.18 0.02 25;
+    --popover: 1.0 0 0;
+    --popover-foreground: 0.18 0.02 25;
+
+    --primary: 0.72 0.25 12;
+    --primary-foreground: 0.98 0 0;
+
+    --secondary: 0.85 0.12 280;
+    --secondary-foreground: 0.25 0 0;
+    --muted: 0.95 0.02 20;
+    --muted-foreground: 0.5 0.01 25;
+
+    --accent: 0.68 0.28 25;
+    --accent-foreground: 0.98 0 0;
+
+    --destructive: 0.65 0.2 15;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.92 0.02 20;
+    --input: 0.95 0.02 20;
+    --ring: 0.72 0.25 12;
+
+    --chart-1: 0.72 0.25 12;
+    --chart-2: 0.68 0.28 25;
+    --chart-3: 0.85 0.12 280;
+    --chart-4: 0.65 0.2 15;
+    --chart-5: 0.75 0.15 45;
+
+    --sidebar: 0.98 0 0;
+    --sidebar-foreground: 0.2 0.02 25;
+    --sidebar-primary: 0.72 0.25 12;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.95 0.02 20;
+    --sidebar-accent-foreground: 0.25 0 0;
+    --sidebar-border: 0.92 0.02 20;
+    --sidebar-ring: 0.72 0.25 12;
+  }
+
+  .dark {
+    --background: 0.15 0.01 25;
+    --foreground: 0.92 0.02 20;
+    --card: 0.2 0.01 25;
+    --card-foreground: 0.92 0.02 20;
+    --popover: 0.25 0.01 25;
+    --popover-foreground: 0.92 0.02 20;
+
+    --primary: 0.78 0.28 12;
+    --primary-foreground: 0.15 0.01 25;
+
+    --secondary: 0.3 0.02 25;
+    --secondary-foreground: 0.88 0.02 20;
+    --muted: 0.25 0.01 25;
+    --muted-foreground: 0.6 0.01 25;
+
+    --accent: 0.75 0.3 25;
+    --accent-foreground: 0.15 0.01 25;
+
+    --destructive: 0.72 0.22 15;
+    --destructive-foreground: 0.15 0.01 25;
+
+    --border: 0.28 0.01 25;
+    --input: 0.28 0.01 25;
+    --ring: 0.78 0.28 12;
+
+    --chart-1: 0.78 0.28 12;
+    --chart-2: 0.75 0.3 25;
+    --chart-3: 0.88 0.15 280;
+    --chart-4: 0.72 0.22 15;
+    --chart-5: 0.8 0.18 45;
+
+    --sidebar: 0.18 0.01 25;
+    --sidebar-foreground: 0.92 0.02 20;
+    --sidebar-primary: 0.78 0.28 12;
+    --sidebar-primary-foreground: 0.15 0.01 25;
+    --sidebar-accent: 0.25 0.01 25;
+    --sidebar-accent-foreground: 0.88 0.02 20;
+    --sidebar-border: 0.28 0.01 25;
+    --sidebar-ring: 0.78 0.28 12;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "GeistMono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .gradient-pink-rose {
+    background: linear-gradient(
+      135deg,
+      oklch(var(--primary)),
+      oklch(var(--accent))
+    );
+  }
+
+  .shadow-pookie {
+    box-shadow: 0 10px 30px oklch(var(--primary) / 0.15);
+  }
+
+  .shadow-pookie-lg {
+    box-shadow: 0 20px 50px oklch(var(--primary) / 0.2);
+  }
+
+  .rounded-full-pookie {
+    border-radius: 2rem;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .animate-in {
+    animation-fill-mode: both;
+  }
+  .fade-in {
+    animation: fade-in 0.4s ease-out both;
+  }
+  .zoom-in {
+    animation: zoom-in 0.3s ease-out both;
+  }
+  .slide-in-from-bottom {
+    animation: slide-in-from-bottom 0.4s ease-out both;
+  }
+  .slide-in-from-top {
+    animation: slide-in-from-top 0.4s ease-out both;
+  }
+}
+
+/* Safe area inset CSS variables */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+.safe-top {
+  padding-top: var(--sat);
+}
+
+.safe-bottom {
+  padding-bottom: var(--sab);
+}
+
+.safe-left {
+  padding-left: var(--sal);
+}
+
+.safe-right {
+  padding-right: var(--sar);
+}
+
+@media (pointer: coarse) {
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+@media (pointer: fine) {
+  .touch-target {
+    min-height: 36px;
+    min-width: 36px;
+  }
+}
+
+.device-ios .status-bar-pad {
+  padding-top: max(20px, var(--sat));
+}
+
+.device-android .status-bar-pad {
+  padding-top: max(24px, var(--sat));
+}
+
+.device-desktop body {
+  font-size: 16px;
+}
+
+.device-tablet .content-max-width {
+  max-width: 720px;
+}
+
+.device-desktop .content-max-width {
+  max-width: 960px;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

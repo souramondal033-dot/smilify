@@ -1,0 +1,242 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type UserSummary = 
+ record {
+   country: text;
+   id: principal;
+   name: text;
+   totalSmiles: nat;
+ };
+type UserProfile = 
+ record {
+   badges: vec Badge;
+   bio: opt text;
+   country: text;
+   currentStreak: nat;
+   deactivatedAt: opt int;
+   email: text;
+   id: principal;
+   isPublic: bool;
+   joinedAt: int;
+   lastLoginTime: int;
+   lastPostDate: nat;
+   location: opt text;
+   name: text;
+   phone: opt text;
+   profilePicUrl: opt text;
+   referralCode: text;
+   referralCount: int;
+   referredBy: opt text;
+   tokens: nat;
+   totalSmiles: nat;
+   unlockedStickers: vec text;
+ };
+type UpdateProfileInput = 
+ record {
+   bio: opt text;
+   email: opt text;
+   isPublic: opt bool;
+   location: opt text;
+   name: opt text;
+   phone: opt text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type TopDonor = 
+ record {
+   donationCount: nat;
+   donorName: text;
+   donorPrincipal: text;
+   rank: nat;
+   totalAmount: text;
+ };
+type SmileInput = 
+ record {
+   imageBlobId: text;
+   inviteCode: opt text;
+   userRegion: opt text;
+   userState: opt text;
+ };
+type Smile = 
+ record {
+   createdAt: int;
+   id: text;
+   imageBlobId: text;
+   inviteCode: opt text;
+   likedBy: vec principal;
+   likes: nat;
+   profilePicUrl: opt text;
+   shares: nat;
+   userCountry: text;
+   userId: principal;
+   userName: text;
+   userRegion: opt text;
+   userState: opt text;
+   views: nat;
+ };
+type Result_7 = 
+ variant {
+   err: text;
+   ok;
+ };
+type Result_6 = 
+ variant {
+   err: text;
+   ok: int;
+ };
+type Result_5 = 
+ variant {
+   err: text;
+   ok: record {
+         likes: nat;
+         shares: nat;
+         views: nat;
+       };
+ };
+type Result_4 = 
+ variant {
+   err: text;
+   ok: nat;
+ };
+type Result_3 = 
+ variant {
+   err: text;
+   ok: Smile;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: Donation;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: UserProfile;
+ };
+type RegisterInput = 
+ record {
+   country: text;
+   email: text;
+   name: text;
+ };
+type LikeNotification = 
+ record {
+   id: text;
+   likerId: principal;
+   likerName: text;
+   read: bool;
+   smileId: text;
+   smileOwnerId: principal;
+   timestamp: int;
+ };
+type LeaderboardEntry = 
+ record {
+   createdAt: int;
+   imageBlobId: text;
+   likes: nat;
+   rank: nat;
+   smileId: text;
+   userCountry: text;
+   userId: text;
+   userName: text;
+ };
+type Donation = 
+ record {
+   amount: text;
+   createdAt: int;
+   donorName: text;
+   donorPrincipal: text;
+   id: text;
+   message: opt text;
+   paymentMethod: text;
+ };
+type ChatMessage = 
+ record {
+   content: text;
+   role: text;
+ };
+type BadgeId = 
+ variant {
+   STREAK_3;
+   STREAK_30;
+   STREAK_7;
+   TOKENS_100;
+   TOKENS_1000;
+   TOKENS_500;
+ };
+type Badge = 
+ record {
+   description: text;
+   earnedAt: int;
+   icon: text;
+   id: BadgeId;
+   name: text;
+ };
+type AdminStats = 
+ record {
+   totalDonations: nat;
+   totalSmiles: nat;
+   totalUsers: nat;
+ };
+service : {
+  bulkDeleteSmiles: (ids: vec text) -> (Result_4);
+  buySticker: (stickerId: text, cost: nat) -> (Result);
+  chatWithPookie: (message: text, history: vec ChatMessage) -> (Result_1);
+  deactivateAccount: () -> (Result_1);
+  deleteAccount: () -> (Result_1);
+  deleteSmile: (smileId: text) -> (Result_7);
+  getAdminStats: () -> (AdminStats) query;
+  getAllUsers: () -> (vec UserSummary) query;
+  getCookieConsent: () -> (bool) query;
+  getDonations: () -> (vec Donation) query;
+  getLastLoginTime: () -> (Result_6) query;
+  getMonthlyLeaderboard: () -> (vec LeaderboardEntry) query;
+  getMyProfile: () -> (opt UserProfile) query;
+  getMySmiles: () -> (vec Smile) query;
+  getNotifications: () -> (vec LikeNotification) query;
+  getReferralCode: () -> (Result_1) query;
+  getSmileAnalytics: (smileId: text) -> (Result_5) query;
+  getSmileByInvite: (code: text) -> (Result_3) query;
+  getSmiles: () -> (vec Smile) query;
+  getTopDonors: () -> (vec TopDonor) query;
+  getTrendingSmiles: () -> (vec Smile) query;
+  getWeeklyLeaderboard: () -> (vec LeaderboardEntry) query;
+  likeSmile: (smileId: text) -> (Result_4);
+  markAllNotificationsRead: () -> ();
+  postSmile: (input: SmileInput) -> (Result_3);
+  reactivateAccount: () -> (Result_1);
+  recordDonation: (donorName: text, amount: text, paymentMethod: text,
+   message: opt text) -> (Result_2);
+  recordReferral: (code: text) -> (Result_1);
+  recordSmileShare: (smileId: text) -> ();
+  recordSmileView: (smileId: text) -> ();
+  registerUser: (input: RegisterInput) -> (Result);
+  setCookieConsent: () -> ();
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  updateLastLoginTime: () -> ();
+  updateProfile: (input: UpdateProfileInput) -> (Result);
+  updateProfilePicture: (blobId: text, picUrl: text) -> (Result);
+}

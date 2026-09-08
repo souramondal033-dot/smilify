@@ -1,0 +1,197 @@
+// Version: 3.0.0
+type BadgeId__517067499 =
+  {#STREAK_3; #STREAK_30; #STREAK_7; #TOKENS_100; #TOKENS_1000; #TOKENS_500};
+type Badge__822142493 =
+  {
+    description : Text;
+    earnedAt : Int;
+    icon : Text;
+    id : BadgeId__517067499;
+    name : Text
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Donation__926826216 =
+  {
+    amount : Text;
+    createdAt : Int;
+    donorName : Text;
+    donorPrincipal : Text;
+    id : Text;
+    message : ?Text;
+    paymentMethod : Text
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type LikeNotificationInternal__589233215 =
+  {
+    id : Text;
+    likerId : Principal;
+    likerName : Text;
+    var read : Bool;
+    smileId : Text;
+    smileOwnerId : Principal;
+    timestamp : Int
+  };
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type OldBadgeId__309215177 =
+  {#STREAK_3; #STREAK_30; #STREAK_7; #TOKENS_100; #TOKENS_1000; #TOKENS_500};
+type OldBadge__969713202 =
+  {
+    description : Text;
+    earnedAt : Int;
+    icon : Text;
+    id : OldBadgeId__309215177;
+    name : Text
+  };
+type OldDonation__436521540 =
+  {
+    amount : Text;
+    createdAt : Int;
+    donorName : Text;
+    donorPrincipal : Text;
+    id : Text;
+    message : ?Text;
+    paymentMethod : Text
+  };
+type OldLikeNotificationInternal__366252321 =
+  {
+    id : Text;
+    likerId : Principal;
+    likerName : Text;
+    var read : Bool;
+    smileId : Text;
+    smileOwnerId : Principal;
+    timestamp : Int
+  };
+type OldSmile__801640458 =
+  {
+    createdAt : Int;
+    id : Text;
+    imageBlobId : Text;
+    inviteCode : ?Text;
+    likedBy : [Principal];
+    likes : Nat;
+    profilePicUrl : ?Text;
+    shares : Nat;
+    userCountry : Text;
+    userId : Principal;
+    userName : Text;
+    views : Nat
+  };
+type OldUserProfile__416069324 =
+  {
+    badges : [OldBadge__969713202];
+    bio : ?Text;
+    country : Text;
+    currentStreak : Nat;
+    deactivatedAt : ?Int;
+    email : Text;
+    id : Principal;
+    isPublic : Bool;
+    joinedAt : Int;
+    lastLoginTime : Int;
+    lastPostDate : Nat;
+    location : ?Text;
+    name : Text;
+    phone : ?Text;
+    profilePicUrl : ?Text;
+    referralCode : Text;
+    referralCount : Int;
+    referredBy : ?Text;
+    tokens : Nat;
+    totalSmiles : Nat;
+    unlockedStickers : [Text]
+  };
+type Smile__785880007 =
+  {
+    createdAt : Int;
+    id : Text;
+    imageBlobId : Text;
+    inviteCode : ?Text;
+    likedBy : [Principal];
+    likes : Nat;
+    profilePicUrl : ?Text;
+    shares : Nat;
+    userCountry : Text;
+    userId : Principal;
+    userName : Text;
+    userRegion : ?Text;
+    userState : ?Text;
+    views : Nat
+  };
+type UserProfile__883602200 =
+  {
+    badges : [Badge__822142493];
+    bio : ?Text;
+    country : Text;
+    currentStreak : Nat;
+    deactivatedAt : ?Int;
+    email : Text;
+    id : Principal;
+    isPublic : Bool;
+    joinedAt : Int;
+    lastLoginTime : Int;
+    lastPostDate : Nat;
+    location : ?Text;
+    name : Text;
+    phone : ?Text;
+    profilePicUrl : ?Text;
+    referralCode : Text;
+    referralCount : Int;
+    referredBy : ?Text;
+    tokens : Nat;
+    totalSmiles : Nat;
+    unlockedStickers : [Text]
+  };
+actor ({
+  in cookieConsent : Map__605269027<Principal, Bool>;
+  in donations : List__415060402<OldDonation__436521540>;
+  in notifications :
+    Map__605269027<Principal,
+                    List__415060402<OldLikeNotificationInternal__366252321>>;
+  in smiles : List__415060402<OldSmile__801640458>;
+  in users : Map__605269027<Principal, OldUserProfile__416069324>
+}, {
+  stable cookieConsent :
+    {var root : Node__46230540<Principal, Bool>; var size : Nat__490723111};
+  stable donations :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Donation__926826216]];
+      var elementIndex : Nat__490723111
+    };
+  stable notifications :
+    {
+      var root :
+        Node__46230540<Principal,
+                        List__415060402<LikeNotificationInternal__589233215>>;
+      var size : Nat__490723111
+    };
+  stable smiles :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Smile__785880007]];
+      var elementIndex : Nat__490723111
+    };
+  stable users :
+    {
+      var root : Node__46230540<Principal, UserProfile__883602200>;
+      var size : Nat__490723111
+    }
+});

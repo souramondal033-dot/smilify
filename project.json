@@ -1,0 +1,27 @@
+{
+  "overview": "Smilify is a decentralized, positivity-driven smile-sharing platform on the Internet Computer where users share smiling selfies, earn tokens, and connect globally through a happiness-focused community.",
+  "features": [
+    "Global happiness feed with location-tagged smile posts",
+    "Pookie-branded pop-up re-engagement notifications",
+    "Automatic region/state/country detection on posts",
+    "Pookie Panda AI chat assistant",
+    "Smile Token economy with sticker boutique",
+    "Welfare Fund with donation integration",
+    "Weekly and monthly leaderboards",
+    "Like notifications with user names",
+    "Camera capture with sticker editor",
+    "Personal content feed with analytics"
+  ],
+  "category": "social",
+  "tags": [
+    "smile",
+    "social",
+    "positivity",
+    "decentralized",
+    "internet-computer",
+    "gamification",
+    "welfare",
+    "community"
+  ],
+  "last_updated": "2026-05-07T08:37:11.366Z"
+}
